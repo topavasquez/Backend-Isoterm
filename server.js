@@ -2,10 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const pool = require('./db');
+const emailRoutes = require('./emailRoutes');
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
 
 const PORT = 4000;
 
@@ -37,6 +39,8 @@ app.get('/api/read', async (req, res) => {
         res.status(500).json({ error: 'Error al obtener los registros' });
     }
 });
+
+app.use('/api', emailRoutes);
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
